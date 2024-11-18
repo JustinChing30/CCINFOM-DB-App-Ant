@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Portal</title>
+    <style>
+        body {
+            background-image: url('images/patient.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .menu-container {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .menu-container h2 {
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+
+        .menu-button {
+            display: block;
+            width: 200px;
+            padding: 15px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            background-color: #12a2a0;
+            color: white;
+        }
+
+        .menu-button.back { background-color: #e72e2e; color: white; }
+
+        .menu-button:hover {
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h2>What would you like to do today?</h2>
+        <button class="menu-button" onclick="window.location.href='appointment.html'">Appointment</button>
+        <button class="menu-button" onclick="window.location.href='updateappointment.html'">Update Patient Appointment</button>
+        <button class="menu-button" onclick="window.location.href='deleteappointment.html'">Delete Patient Appointment</button>
+        <button class="menu-button back" onclick="window.location.href='index.html'">Back</button>
+    </div>
+</body>
+</html>

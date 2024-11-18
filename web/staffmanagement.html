@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('images/staff.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+        
+        .menu-container {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .menu-container h2 {
+            font-weight: bold;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            background-color: #f44336;
+            color: white;
+            display: block;
+            margin: 20px auto;
+        }
+        .hire-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .fire-btn {
+            background-color: #ff4800;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h2>Select an option.</h2>     
+        <div class="button-group">
+            <button class="hire-btn" onclick="window.location.href='hirestaff.html';">Hire</button>
+            <button class="fire-btn" onclick="window.location.href='firestaff.html';">Fire</button>
+        </div>
+
+        <button class="back-btn" onclick="window.location.href='staffportal.html';">Back</button>
+    </div>
+</body>
+</html>
