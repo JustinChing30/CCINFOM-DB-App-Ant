@@ -60,7 +60,7 @@
         int result = checker.checkPatientExists();
         
         if (result == patientId) {
-        response.sendRedirect("updateappointment2.html");
+        response.sendRedirect("deleted.html");
         } else if (result == 0) {
         %>
         <h2>Patient ID does not exist.</h2>
@@ -74,7 +74,7 @@
     }
     %>
     <div class="input-container">
-        <button class="back-btn" onclick="window.location.href='updateappointment.html';">Back</button>
+        <button class="back-btn" onclick="window.location.href='deleteappointment.html';">Back</button>
     </div>
     </div>
 </body>
