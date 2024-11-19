@@ -40,7 +40,7 @@ public class patientIDexists {
                 conn.close();
                 
                 if (count > 0) {
-                    return 1;
+                    return patient_id;
                 }
                 else {
                     return 0;
@@ -48,16 +48,16 @@ public class patientIDexists {
             }
 
         } catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error:" + e.getMessage());
             return -1;
         } finally {
-            // Ensure resources are closed properly
+            // close the stuff
             try {
                 if (result != null) result.close();
                 if (pstmt != null) pstmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
-                System.out.println("Error closing resources: " + e.getMessage());
+                System.out.println("Error:" + e.getMessage());
             }
         }
         return -1;
