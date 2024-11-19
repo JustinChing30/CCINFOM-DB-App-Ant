@@ -48,9 +48,4 @@ public class delete {
         }
       
     }
-    public static void main (String args[]) {
-            delete A = new delete();
-            A.patient_id = 2;
-            A.delete_appointment();
-    }
 }

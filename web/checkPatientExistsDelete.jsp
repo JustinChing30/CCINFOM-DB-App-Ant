@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*, CCINFOM.patientIDexists" %>
+<%@ page import="java.sql.*, CCINFOM.patientIDexists, CCINFOM.delete" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,22 +60,27 @@
         int result = checker.checkPatientExists();
         
         if (result == patientId) {
-        response.sendRedirect("deleted.html");
+        delete id = new delete();
+        id.patient_id = patientId;
+        id.delete_appointment();
+        %>
+        <h2>Patient ID deleted.</h2>
+        <button class="back-btn" onclick="window.location.href='patientportal.html';">Return</button>
+        <%
         } else if (result == 0) {
         %>
         <h2>Patient ID does not exist.</h2>
+        <button class="back-btn" onclick="window.location.href='deleteappointment.html';">Back</button>
         <%
         }
     }
     else {
     %>
         <h2>Invalid input.</h2>
+        <button class="back-btn" onclick="window.location.href='deleteappointment.html';">Back</button>
     <%
     }
     %>
-    <div class="input-container">
-        <button class="back-btn" onclick="window.location.href='deleteappointment.html';">Back</button>
-    </div>
     </div>
 </body>
 </html>
