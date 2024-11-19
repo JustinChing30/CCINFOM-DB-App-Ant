@@ -51,7 +51,7 @@
     <%
         String patientIdStr = request.getParameter("patient-id");
         
-        if (patientIdStr != null && patientIdStr.matches("\\d+")) {
+        if (patientIdStr != null && patientIdStr.matches("\\d+") && !patientIdStr.equals("0")) {
         int patientId = Integer.parseInt(patientIdStr);
 
         patientIDexists checker = new patientIDexists();

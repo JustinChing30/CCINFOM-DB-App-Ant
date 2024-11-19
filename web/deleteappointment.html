@@ -52,9 +52,11 @@
 <body>
     <div class="input-container">
         <label for="patient-id">Enter patient ID:</label><br>
-        <input type="text" id="patient-id" placeholder="Patient ID"><br>
-        <button class="back-btn" onclick="window.location.href='patientportal.html';">Back</button>
-        <button type="submit" class="confirm-btn" onclick="window.location.href='checkPatientExists.jsp';">Confirm</button>
+        <form action="checkPatientExistsDelete.jsp" method="POST">
+            <input type="text" id="patient-id" name="patient-id" placeholder="Patient ID" required><br>
+            <button class="back-btn" onclick="window.location.href='patientportal.html';">Back</button>
+            <button type="submit" class="confirm-btn">Confirm</button>
+        </form>
     </div>
 </body>
 </html>
