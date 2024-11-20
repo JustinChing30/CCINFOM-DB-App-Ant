@@ -51,17 +51,24 @@
 </head>
 <body>
     <div class="input-container">
-        <label for="item-name">Item name:</label>
-        <input type="text" id="item-name" placeholder="Item name"><br>
-        <form action="checkPatientExistsDelete.jsp" method="POST">
-            <input type="text" id="patient-id" name="patient-id" placeholder="Patient ID" required><br>
-            <button class="back-btn" onclick="window.location.href='patientportal.html';">Back</button>
+        <form action="checkInventory.jsp" method="POST">
+            <!-- Hidden input to store the selected item -->
+            <input type="hidden" name="item" id="selected-item" value="">
+
+            <p>Select item:</p>
+            <button type="button" onclick="document.getElementById('selected-item').value='urine_cup';">Urine Cup</button>
+            <button type="button" onclick="document.getElementById('selected-item').value='needle';">Needle</button>
+            <button type="button" onclick="document.getElementById('selected-item').value='syringe';">Syringe</button>
+            <button type="button" onclick="document.getElementById('selected-item').value='xray_film';">X-Ray Film</button>
+            <button type="button" onclick="document.getElementById('selected-item').value='antiseptic_wipes';">Antiseptic Wipes</button>
+            <button type="button" onclick="document.getElementById('selected-item').value='medical_gloves';">Medical Gloves</button>
+
+            <p>Enter amount:</p>
+            <input type="number" name="amount" placeholder="Amount" required><br><br>
+            
+            <button class="back-btn" onclick="window.location.href='staffportal.html';">Back</button>
             <button type="submit" class="confirm-btn">Confirm</button>
-        </form>        
-        <label for="amount">Amount:</label>
-        <input type="text" id="amount" placeholder="Amount"><br>        
-        <button class="back-btn" onclick="window.location.href='staffportal.html';">Back</button>
-        <button class="confirm-btn">Confirm</button>
+        </form>
     </div>
 </body>
 </html>

@@ -49,9 +49,13 @@
 <body>    
     <div class="menu-container">
     <%
-        String patientIdStr = request.getParameter("patient-id");
+        String itemName = request.getParameter("item-name");
+        String amountAdded = request.getParameter("amount");
         
-        if (patientIdStr != null && patientIdStr.matches("\\d+") && !patientIdStr.equals("0")) {
+        itemName.toLowerCase();
+        
+        if (itemName == "urine_cup" || itemName == "needle" || itemName == "syringe" || itemName == "xray_film" || itemName == "antiseptic_wipes"
+        || itemName == "medical_gloves") {
         int patientId = Integer.parseInt(patientIdStr);
 
         patientIDexists checker = new patientIDexists();
