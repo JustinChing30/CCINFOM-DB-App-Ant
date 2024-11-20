@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*, CCINFOM.patientIDexists, CCINFOM.delete" %>
+<%@ page import="java.sql.*, java.util.Set, java.util.HashSet, java.util.Arrays" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,14 +49,15 @@
 <body>    
     <div class="menu-container">
     <%
-        String itemName = request.getParameter("item-name");
+        String itemName = request.getParameter("selected-item");
         String amountAdded = request.getParameter("amount");
         
         itemName.toLowerCase();
         
-        if (itemName == "urine_cup" || itemName == "needle" || itemName == "syringe" || itemName == "xray_film" || itemName == "antiseptic_wipes"
-        || itemName == "medical_gloves") {
-        int patientId = Integer.parseInt(patientIdStr);
+        Set<String> itemNames = new HashSet<>(Arrays.asList("urine_cup", "needle", "syringe", "xray_film", "antiseptic_wipes", "medical_gloves"));
+        
+        if (itemNames.contains(itemName)) {
+        int amount = Integer.parseInt(amountAdded);
 
         patientIDexists checker = new patientIDexists();
         checker.patient_id = patientId;
