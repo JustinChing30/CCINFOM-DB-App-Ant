@@ -22,7 +22,7 @@ public class inventoryUpdate {
         
     }
    
-    public int delete_appointment() {
+    public int update_item_amount() {
         
         try {
             // 1. connect with database

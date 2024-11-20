@@ -33,7 +33,6 @@
         }
         button {
             padding: 10px 20px;
-            margin: 5px;
             border: none;
             border-radius: 5px;
             font-size: 16px;
@@ -46,17 +45,19 @@
         .confirm-btn {
             background-color: #4caf50;
             color: white;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
     <div class="input-container">
-        <label for="schedule">Select schedule:<br></label>
+        <label for="schedule">Enter schedule:<br><b>YYYY-MM-DD HH:MM:SS</b></label><br>
+        
         <form action = "makeappointment.jsp" method = "POST">
-            <input type="datetime-local" id="schedule" name="appointment"><br>
-            <button class="back-btn" onclick="window.location.href='patientportal.html';">Back</button>
+            <input type="datetime-local" id="schedule" name="schedule"><br>
             <button type="submit" class="confirm-btn">Confirm</button>
         </form>
+        <button class="back-btn" onclick="window.location.href='patientportal.html';">Back</button>
     </div>
 </body>
 </html>

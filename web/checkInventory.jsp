@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*, java.util.Set, java.util.HashSet, java.util.Arrays" %>
+<%@ page import="java.sql.*, java.util.Set, java.util.HashSet, java.util.Arrays, CCINFOM.inventoryUpdate" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,8 +59,8 @@
         if (itemNames.contains(itemName)) {
         int amount = Integer.parseInt(amountAdded);
 
-        patientIDexists checker = new patientIDexists();
-        checker.patient_id = patientId;
+        inventoryUpdate updater = new inventoryUpdate();
+        updater.item_id = patientId;
 
         int result = checker.checkPatientExists();
         

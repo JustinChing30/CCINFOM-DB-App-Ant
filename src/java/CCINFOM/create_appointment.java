@@ -18,25 +18,25 @@ public class create_appointment {
     
     public boolean makeAppointment (Timestamp appointment_time){
         boolean isSuccess = false;
-        try{
-            Connection conn; 
-            conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "CCINFOM");
-            conn.setAutoCommit(true);
-            
-            String sql = "INSERT INTO appointments (scheduled_time) VALUES (?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        String url = "jdbc:mysql://localhost:3306/new_clinic";
+        String user = "root";
+        String password = "password";
+
+        String sql = "INSERT INTO appointments (scheduled_time) VALUES (?)";
+        
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
             stmt.setTimestamp(1, appointment_time);
-            
+        
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 isSuccess = true;
             }
-
-            stmt.close();
-            conn.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    
         return isSuccess;
     }
 }

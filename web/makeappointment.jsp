@@ -56,15 +56,20 @@
 <body>    
     <div class="menu-container">
     <%
-        String appointment = request.getParameter("appointment");
+        String appointment = request.getParameter("schedule");
         if (appointment != null) {
-        // Convert input to LocalDateTime
-        LocalDateTime localDateTime = LocalDateTime.parse(appointment);
+            // Use a correct DateTimeFormatter for the datetime-local input format
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
-        // Convert LocalDateTime to java.sql.Timestamp
-        Timestamp timestamp = Timestamp.valueOf(localDateTime);
-        create_appointment createAppointment = new create_appointment();
-        boolean success = createAppointment.makeAppointment(timestamp);
+            // Parse the input string into LocalDateTime
+            LocalDateTime localDateTime = LocalDateTime.parse(appointment, formatter);
+
+            // Convert LocalDateTime to Timestamp
+            Timestamp timestamp = Timestamp.valueOf(localDateTime);
+
+            // Create an appointment
+            create_appointment createAppointment = new create_appointment();
+            boolean success = createAppointment.makeAppointment(timestamp);
 
         if (success) {
 %>
