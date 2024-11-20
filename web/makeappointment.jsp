@@ -79,20 +79,20 @@
                 } else {
     %>
                     <h2>Invalid schedule</h2>
-                    <button class="back-btn" onclick="window.location.href='appointment.html';">Back</button>
+                    <button class="back-btn" onclick="window.location.href='appointment.jsp';">Back</button>
     <%
                 }
             } catch (Exception e) {
                 e.printStackTrace();
     %>
                 <h2>Error occurred: <%= e.getMessage() %></h2>
-                <button class="back-btn" onclick="window.location.href='appointment.html';">Back</button>
+                <button class="back-btn" onclick="window.location.href='appointment.jsp';">Back</button>
     <%
             }
         } else {
     %>
             <h2>Please provide a valid date.</h2>
-            <button class="back-btn" onclick="window.location.href='appointment.html';">Back</button>
+            <button class="back-btn" onclick="window.location.href='appointment.jsp';">Back</button>
     <%
         }
     %>
