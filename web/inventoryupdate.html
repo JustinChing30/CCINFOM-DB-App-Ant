@@ -51,8 +51,13 @@
 </head>
 <body>
     <div class="input-container">
-        <label for="patient-id">Item name:</label>
-        <input type="text" id="patient-id" placeholder="Item name"><br>
+        <label for="item-name">Item name:</label>
+        <input type="text" id="item-name" placeholder="Item name"><br>
+        <form action="checkPatientExistsDelete.jsp" method="POST">
+            <input type="text" id="patient-id" name="patient-id" placeholder="Patient ID" required><br>
+            <button class="back-btn" onclick="window.location.href='patientportal.html';">Back</button>
+            <button type="submit" class="confirm-btn">Confirm</button>
+        </form>        
         <label for="amount">Amount:</label>
         <input type="text" id="amount" placeholder="Amount"><br>        
         <button class="back-btn" onclick="window.location.href='staffportal.html';">Back</button>
