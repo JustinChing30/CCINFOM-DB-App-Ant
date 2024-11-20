@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-image: url('images/patient.png');
+            background-image: url('images/staff.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -52,22 +52,21 @@
 <body>
     <div class="input-container">
         <form action="checkInventory.jsp" method="POST">
-            <!-- Hidden input to store the selected item -->
-            <input type="hidden" name="item" id="selected-item" value="">
+        <p>Select item:</p>
+        <select name="item" required>
+            <option value="">Select an item</option>
+            <option value="urine_cup">Urine Cup</option>
+            <option value="needle">Needle</option>
+            <option value="syringe">Syringe</option>
+            <option value="xray_film">X-Ray Film</option>
+            <option value="antiseptic_wipes">Antiseptic Wipes</option>
+            <option value="medical_gloves">Medical Gloves</option>
+        </select>
 
-            <p>Select item:</p>
-            <button type="button" onclick="document.getElementById('selected-item').value='urine_cup';">Urine Cup</button>
-            <button type="button" onclick="document.getElementById('selected-item').value='needle';">Needle</button>
-            <button type="button" onclick="document.getElementById('selected-item').value='syringe';">Syringe</button>
-            <button type="button" onclick="document.getElementById('selected-item').value='xray_film';">X-Ray Film</button>
-            <button type="button" onclick="document.getElementById('selected-item').value='antiseptic_wipes';">Antiseptic Wipes</button>
-            <button type="button" onclick="document.getElementById('selected-item').value='medical_gloves';">Medical Gloves</button>
-
-            <p>Enter amount:</p>
-            <input type="number" id="amount" name="amount" placeholder="Amount" required><br><br>
-            
-            
-            <button type="submit" class="confirm-btn">Confirm</button>
+        <p>Enter amount:</p>
+        <input type="number" id="amount" name="amount" placeholder="Amount" required><br><br>
+        
+        <button type="submit" class="confirm-btn">Confirm</button>
         </form>
         <button class="back-btn" onclick="window.location.href='staffportal.html';">Back</button>
     </div>

@@ -8,7 +8,7 @@
     
     <style>
         body {
-            background-image: url('images/staff.png');
+            background-image: url('images/staff.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -49,40 +49,53 @@
 <body>    
     <div class="menu-container">
     <%
-        String itemName = request.getParameter("selected-item");
+        String itemName = request.getParameter("item");
         String amountAdded = request.getParameter("amount");
         
         itemName.toLowerCase();
-        
-        Set<String> itemNames = new HashSet<>(Arrays.asList("urine_cup", "needle", "syringe", "xray_film", "antiseptic_wipes", "medical_gloves"));
-        
-        if (itemNames.contains(itemName)) {
         int amount = Integer.parseInt(amountAdded);
-
-        inventoryUpdate updater = new inventoryUpdate();
-        updater.item_id = patientId;
-
-        int result = checker.checkPatientExists();
         
-        if (result == patientId) {
-        delete id = new delete();
-        id.patient_id = patientId;
-        id.delete_appointment();
+        if (amount > 0) {
+            System.out.println("bwbaababab item naaame: " + itemName);
+            int item_id = 0;
+            if (itemName.equals("urine_cup")) {
+                item_id = 1;
+            }
+            else if (itemName.equals("needle")) {
+                item_id = 2;
+            }
+            else if (itemName.equals("syringe")) {
+                item_id = 3;
+            }        
+            else if (itemName.equals("xray_film")) {
+                item_id = 4;
+            }
+            else if (itemName.equals("antiseptic_wipes")) {
+                item_id = 5;
+            }
+            else if (itemName.equals("medical_gloves")) {
+                item_id = 6;
+            }
+            
+        
+            inventoryUpdate updater = new inventoryUpdate();
+            updater.item_id = item_id;
+            updater.amount = amount;
+            
+            int checker = updater.update_item_amount();
+            
+            if (checker > 0) {
+
         %>
-        <h2>Patient ID deleted.</h2>
-        <button class="back-btn" onclick="window.location.href='patientportal.html';">Return</button>
+        <h2>Stock added.</h2>
+        <button class="back-btn" onclick="window.location.href='staffportal.html';">Return</button>
         <%
-        } else if (result == 0) {
-        %>
-        <h2>Patient ID does not exist.</h2>
-        <button class="back-btn" onclick="window.location.href='deleteappointment.html';">Back</button>
-        <%
+            }
         }
-    }
-    else {
-    %>
+        else {
+        %>
         <h2>Invalid input.</h2>
-        <button class="back-btn" onclick="window.location.href='deleteappointment.html';">Back</button>
+        <button class="back-btn" onclick="window.location.href='inventoryupdate.html';">Back</button>
     <%
     }
     %>

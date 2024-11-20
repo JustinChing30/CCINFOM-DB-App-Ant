@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class inventoryUpdate {
     public int item_id;
     public int amount;
-    public String itemName;
     
     public inventoryUpdate(){
         
@@ -24,6 +23,8 @@ public class inventoryUpdate {
    
     public int update_item_amount() {
         
+        System.out.println("aaaSelected item id: " + item_id);
+        System.out.println("aaaAmount: " + amount);
         try {
             // 1. connect with database
             Connection conn; 
@@ -32,20 +33,24 @@ public class inventoryUpdate {
             
             // 2. Get the id you need
             PreparedStatement pstmt;
-            pstmt = conn.prepareStatement("UPDATE inventory SET amount = ? WHERE item_id = ?");
-            pstmt.setInt(1, item_id);
+            pstmt = conn.prepareStatement("UPDATE inventory SET stock = stock + ? WHERE item_id = ?");
             //pstmt.executeQuery();
             
-            pstmt.setInt(1, amount);  // Set the amount
-            pstmt.setInt(2, item_id); // Set the item_id
+            pstmt.setInt(1, amount);
+            pstmt.setInt(2, item_id);
             
-            pstmt.executeUpdate();
+            int a = pstmt.executeUpdate();
                      
             // 3. save it
             pstmt.close();
             conn.close();
 
-            return 1;
+            if (a > 0) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
         } catch (Exception e){
             System.out.println (e.getMessage());
             return 0;
