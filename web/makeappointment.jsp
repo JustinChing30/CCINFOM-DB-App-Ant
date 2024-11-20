@@ -3,10 +3,10 @@
     Created on : Nov 17, 2024, 8:06:30 PM
     Author     : My PC
 --%>
-<%@ page import="java.sql.Timestamp, java.time.LocalDateTime, java.time.format.DateTimeFormatter" %>
-<%@ page import="java.sql.*, CCINFOM.create_appointment" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="java.sql.*, CCINFOM.create_appointment, java.time.LocalDate, java.time.format.DateTimeFormatter" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,35 +56,46 @@
 <body>    
     <div class="menu-container">
     <%
-        String appointment = request.getParameter("schedule");
-        if (appointment != null) {
-            // Use a correct DateTimeFormatter for the datetime-local input format
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        int a = 1;
+        String scheduleDateStr = request.getParameter("schedule");
+        if (a == 1) {
+            try {
+                // Parse the date
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate localDate = LocalDate.parse(scheduleDateStr, formatter);
+                java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+                
+                // Create an appointment object and call makeAppointment
+                create_appointment A = new create_appointment();
+                A.schedule = sqlDate;
+                boolean success = A.makeAppointment();
 
-            // Parse the input string into LocalDateTime
-            LocalDateTime localDateTime = LocalDateTime.parse(appointment, formatter);
-
-            // Convert LocalDateTime to Timestamp
-            Timestamp timestamp = Timestamp.valueOf(localDateTime);
-
-            // Create an appointment
-            create_appointment createAppointment = new create_appointment();
-            boolean success = createAppointment.makeAppointment(timestamp);
-
-        if (success) {
-%>
-                <h2>Valid schedule</h2>
-                <button class="back-btn" onclick="window.location.href='staffportal.html';">Return</button>
-<%
-            } else {
-%>
-                <h2>Invalid schedule</h2>
+                // Check result and display message
+                if (success) {
+    %>
+                    <h2>Valid schedule</h2>
+                    <button class="back-btn" onclick="window.location.href='index.html';">Return</button>
+    <%
+                } else {
+    %>
+                    <h2>Invalid schedule</h2>
+                    <button class="back-btn" onclick="window.location.href='appointment.html';">Back</button>
+    <%
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+    %>
+                <h2>Error occurred: <%= e.getMessage() %></h2>
                 <button class="back-btn" onclick="window.location.href='appointment.html';">Back</button>
-<%
+    <%
             }
-        } 
-    
-%>
+        } else {
+    %>
+            <h2>Please provide a valid date.</h2>
+            <button class="back-btn" onclick="window.location.href='appointment.html';">Back</button>
+    <%
+        }
+    %>
         
     </div>
 </body>

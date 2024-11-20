@@ -7,36 +7,38 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.sql.*;
 /**
  *
  * @author user
  */
 public class create_appointment {
-    public String appointment_time;
+    public java.sql.Date schedule;
     
     public create_appointment(){}
     
-    public boolean makeAppointment (Timestamp appointment_time){
+    public boolean makeAppointment (){
         boolean isSuccess = false;
-        String url = "jdbc:mysql://localhost:3306/new_clinic";
+        String url = "jdbc:mysql://localhost:3306/school_clinic";
         String user = "root";
-        String password = "password";
+        String password = "CCINFOM";
 
-        String sql = "INSERT INTO appointments (scheduled_time) VALUES (?)";
+        String query = "INSERT INTO appointments (appointment_time) VALUES (?)";
         
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-        
-            stmt.setTimestamp(1, appointment_time);
-        
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                isSuccess = true;
-            }
-        } catch (Exception e) {
+        try {
+             Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(query);
+
+            //
+            
+            stmt.setDate(1, schedule);
+
+         
+            int rowsAffected = stmt.executeUpdate();
+            isSuccess = rowsAffected > 0;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    
         return isSuccess;
     }
 }
