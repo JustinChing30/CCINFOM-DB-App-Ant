@@ -33,7 +33,7 @@ public class inventoryUpdate {
             
             // 2. Get the id you need
             PreparedStatement pstmt;
-            pstmt = conn.prepareStatement("UPDATE inventory SET stock = stock + ? WHERE item_id = ?");
+            pstmt = conn.prepareStatement("UPDATE inventory SET stock = stock + ?, last_stocked = CURDATE() WHERE item_id = ?");
             //pstmt.executeQuery();
             
             pstmt.setInt(1, amount);
