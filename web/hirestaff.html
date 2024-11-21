@@ -32,6 +32,17 @@
             font-size: 16px;
         }
         
+        select {
+            display: block;
+            margin: 10px auto;
+            width: 220px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
         .button-group {
             display: flex;
             justify-content: center;
@@ -63,19 +74,27 @@
 </head>
 <body>
     <div class="input-container">
-        <label for="staff-first-name">First Name:</label>
-        <input type="text" id="staff-first-name" placeholder="First name"><br>
-        <label for="staff-last-name">Last Name:</label>
-        <input type="text" id="staff-last-name" placeholder="Last name"><br>
-        <label for="specialization">Specialization:</label>
-        <input type="text" id="specialization" placeholder="Specialization"><br>
+        <form action="newStaff.jsp" method="POST">
+        <p>Last Name:</p>
+        <input type="text" id="last_name" name="last_name" placeholder="Last name" required><br>
         
-        <div class="button-group">
-            <button class="back-btn" onclick="window.location.href='staffmanagement.html';">Back</button>
-            <button class="hire-btn">Confirm</button>
-        </div>
+        <p>First Name:</p>
+        <input type="text" id="first_name" name="first_name" placeholder="First name" required><br>        
+            
+        <p>Select specialization:</p>
+        <select name="specialization" required>
+            <option value="">Select a specialization</option>
+            <option value="doctor">Doctor</option>
+            <option value="dentist">Dentist</option>
+            <option value="nurse">Nurse</option>
+            <option value="assistant">Assistant</option>
+        </select>
+
 
         
+        <button type="submit" class="hire-btn">Hire</button>
+        </form>
+        <button class="back-btn" onclick="window.location.href='staffmanagement.html';">Back</button>
     </div>
 </body>
 </html>
