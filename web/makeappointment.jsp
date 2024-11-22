@@ -74,7 +74,7 @@
                 if (success) {
     %>
                     <h2>Valid schedule</h2>
-                    <button class="back-btn" onclick="window.location.href='index.html';">Return</button>
+                    <button class="confirm-btn" onclick="window.location.href='appointmentinput.html';">Return</button>
     <%
                 } else {
     %>
