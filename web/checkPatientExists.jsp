@@ -60,7 +60,7 @@
         int result = checker.checkPatientExists();
         
         if (result == patientId) {
-        response.sendRedirect("updateappointment2.html");
+        response.sendRedirect("appointmentUpdate.html");
         } else if (result == 0) {
         %>
         <h2>Patient ID does not exist.</h2>
