@@ -101,17 +101,24 @@
                 A.urinalysis = urinalysis;
                 A.patientId = A.get_patientId();
                 
+                // team from staff
+                
+                
                 if (dental.equals("yes")){
                     count = count + 1;
+                    A.dent = A.random_dentist();
                 }
                 if (blood.equals("yes")){
                     count = count + 1;
+                    A.assist = A.random_assistant();
                 }
                 if (xray.equals("yes")){
                     count = count + 1;
+                    A.nurse = A.random_nurse();
                 }
                 if (urinalysis.equals("yes")){
                     count = count + 1;
+                    A.doc = A.random_doctor();
                 }
                 
                 A.count = count;
@@ -119,9 +126,11 @@
                 int success3 = 0;
                 int success2;     
                 int success1 = A.insert_info();
+                int successTeam;
        
                 if (success1 > 0){
                     success2 = A.insert_appointment_table();
+                    A.createTeam();
                     if (success2 > 0){
                         success3 = A.insert_health_table();
                     }

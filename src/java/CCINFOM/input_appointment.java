@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 /**
  *
  * @author user
@@ -45,6 +48,13 @@ public class input_appointment {
     public int xrayCount = 0;
     public int antisepticCount = 0;
     public int glovesCount = 0;
+    
+    // team from staff
+    public int doc;
+    public int dent;
+    public int nurse;
+    public int assist;
+    public int teamid;
     
     public input_appointment (){}
     
@@ -315,5 +325,190 @@ public class input_appointment {
         }
         return 0;
     }
+        
+    public int random_doctor(){
+        String query = "SELECT staff_id FROM staff WHERE specialization = 'doctor' ORDER BY RAND() LIMIT 1";
+        
+        try (
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
+            
+                
+        int doctorID = 0;
+        
+        if (resultSet.next()) {
+            doctorID = resultSet.getInt("staff_id");
+        }
+        
+        resultSet.close();
+        return doctorID;
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
     
+    public int random_dentist(){
+        String query = "SELECT staff_id FROM staff WHERE specialization = 'dentist' ORDER BY RAND() LIMIT 1";
+        
+        try (
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
+            
+                
+        int dentistID = 0;
+        
+        if (resultSet.next()) {
+            dentistID = resultSet.getInt("staff_id");
+        }
+        
+        resultSet.close();
+        return dentistID;
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int random_nurse(){
+        String query = "SELECT staff_id FROM staff WHERE specialization = 'nurse' ORDER BY RAND() LIMIT 1";
+        
+        try (
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
+            
+                
+        int nurseID = 0;
+        
+        if (resultSet.next()) {
+            nurseID = resultSet.getInt("staff_id");
+        }
+        
+        resultSet.close();
+        return nurseID;
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+   
+    public int random_assistant(){
+        String query = "SELECT staff_id FROM staff WHERE specialization = 'assistant' ORDER BY RAND() LIMIT 1";
+        
+        try (
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
+            
+                
+        int assistantID = 0;
+        
+        if (resultSet.next()) {
+            assistantID = resultSet.getInt("staff_id");
+        }
+        
+        resultSet.close();
+        return assistantID;
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int insert_empty_team_table() {
+    String query = "INSERT INTO team_record (doctor, dentist, nurse, assistant) VALUES (?, ?, ?, ?)";
+
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
+         PreparedStatement xtmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+        xtmt.setNull(1, java.sql.Types.INTEGER);
+        xtmt.setNull(2, java.sql.Types.INTEGER);
+        xtmt.setNull(3, java.sql.Types.INTEGER);
+        xtmt.setNull(4, java.sql.Types.INTEGER);
+
+        int teamSuccess = xtmt.executeUpdate();
+
+        if (teamSuccess > 0) {
+            try (ResultSet generatedKeys = xtmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    this.teamid = generatedKeys.getInt(1);
+                } else {
+                    return 0;
+                }
+            }
+        } else {
+            return 0;
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return 0;
+    }
+    return 0;
 }
+    
+    public int createTeam() {
+        
+        insert_empty_team_table();
+    
+        String updateQuery = "UPDATE team_record SET doctor = ?, dentist = ?, nurse = ?, assistant = ? WHERE team_id = ?";
+        
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
+             PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+            
+            if (doc == 0) {
+                updateStmt.setNull(1, java.sql.Types.INTEGER);  // Set NULL for doctor if doc is 0
+            } else {
+                updateStmt.setInt(1, doc);  // Set the actual doctor ID if doc is not 0
+            }
+
+            // Check if dent is 0, if so set NULL, otherwise set the dentist ID
+            if (dent == 0) {
+                updateStmt.setNull(2, java.sql.Types.INTEGER);  // Set NULL for dentist if dent is 0
+            } else {
+                updateStmt.setInt(2, dent);  // Set the actual dentist ID if dent is not 0
+            }
+
+            // Check if nurse is 0, if so set NULL, otherwise set the nurse ID
+            if (nurse == 0) {
+                updateStmt.setNull(3, java.sql.Types.INTEGER);  // Set NULL for nurse if nurse is 0
+            } else {
+                updateStmt.setInt(3, nurse);  // Set the actual nurse ID if nurse is not 0
+            }
+
+            // Check if assist is 0, if so set NULL, otherwise set the assistant ID
+            if (assist == 0) {
+                updateStmt.setNull(4, java.sql.Types.INTEGER);  // Set NULL for assistant if assist is 0
+            } else {
+                updateStmt.setInt(4, assist);  // Set the actual assistant ID if assist is not 0
+            }
+
+            // Set the team_id for the update
+            updateStmt.setInt(5, teamid);
+
+            // Execute the update query
+            int rowsAffected = updateStmt.executeUpdate();
+
+            // Check if any rows were updated
+            if (rowsAffected > 0) {
+                System.out.println("Team updated successfully.");
+            } else {
+                System.out.println("No rows updated.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    return 0;
+    }
+}
+    
+    
