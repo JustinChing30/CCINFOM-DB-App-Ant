@@ -38,6 +38,14 @@ public class input_appointment {
     public int count;
     public int patientId;
     
+    // inventory subtract
+    public int urineCupCount = 0;
+    public int needleCount = 0;
+    public int syringeCount = 0;
+    public int xrayCount = 0;
+    public int antisepticCount = 0;
+    public int glovesCount = 0;
+    
     public input_appointment (){}
     
     public int get_patientId (){
@@ -154,24 +162,83 @@ public class input_appointment {
         xtmt.setString(5, urinalysis);
         xtmt.setString(6, abdominal_Xray);
         xtmt.setInt(7, count);
-        
+
         if (dental.equals("yes")) {
             totalFee += 500;
+            glovesCount += 1;
         }
         if (blood_test.equals("yes")) {
             totalFee += 150;
+            needleCount += 1;
+            syringeCount += 1;
+            antisepticCount += 1;
+            glovesCount += 1;
         }
         if (urinalysis.equals("yes")) {
             totalFee += 100;
+            urineCupCount += 1;
         }
         if (abdominal_Xray.equals("yes")) {
             totalFee += 300;
+            xrayCount += 1;
         }
+
         xtmt.setFloat(8, totalFee);
         
         int healthSuccess = xtmt.executeUpdate();
         
         xtmt.close();
+        
+        
+        PreparedStatement itmt = conn.prepareStatement(
+            "UPDATE inventory SET stock = stock - ? WHERE item_id = ?"
+        );
+
+
+        if (urineCupCount > 0) {
+            itmt.setInt(1, urineCupCount);
+            itmt.setInt(2, 1);
+            itmt.executeUpdate();
+        }
+
+        // Update needles
+        if (needleCount > 0) {
+            itmt.setInt(1, needleCount);
+            itmt.setInt(2, 2);
+            itmt.executeUpdate();
+        }
+
+
+        if (syringeCount > 0) {
+            itmt.setInt(1, syringeCount);
+            itmt.setInt(2, 3);
+            itmt.executeUpdate();
+        }
+
+
+        if (xrayCount > 0) {
+            itmt.setInt(1, xrayCount);
+            itmt.setInt(2, 4);
+            itmt.executeUpdate();
+        }
+
+
+        if (antisepticCount > 0) {
+            itmt.setInt(1, antisepticCount);
+            itmt.setInt(2, 5);
+            itmt.executeUpdate();
+        }
+
+
+        if (glovesCount > 0) {
+            itmt.setInt(1, glovesCount);
+            itmt.setInt(2, 6);
+            itmt.executeUpdate();
+        }
+
+        itmt.close();
+        
+        
         conn.close();
         
         if (healthSuccess > 0){
