@@ -19,14 +19,13 @@ public class create_appointment {
     
     public boolean makeAppointment (){
         boolean isSuccess = false;
-        String url = "jdbc:mysql://localhost:3306/school_clinic";
-        String user = "root";
-        String password = "CCINFOM";
 
         String query = "INSERT INTO appointments (appointment_time) VALUES (?)";
         
         try {
-             Connection conn = DriverManager.getConnection(url, user, password);
+             Class.forName("com.mysql.cj.jdbc.Driver");
+            
+             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
              PreparedStatement stmt = conn.prepareStatement(query);
 
             //
@@ -36,6 +35,8 @@ public class create_appointment {
          
             int rowsAffected = stmt.executeUpdate();
             isSuccess = rowsAffected > 0;
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
         } catch (SQLException e) {
             e.printStackTrace();
         }

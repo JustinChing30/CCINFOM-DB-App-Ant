@@ -64,7 +64,7 @@
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn; 
-                conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "password");
+                conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
                 String sql = "SELECT MONTH(a.appointment_time), COUNT(a.patient_id) AS TotalPatients " +
                             "FROM staff s " +
                             "JOIN team_record tr " +
@@ -81,7 +81,7 @@
                 PreparedStatement pstmt = conn.prepareStatement(sql);;
                 ResultSet rs = pstmt.executeQuery();
                 // get name of staff member
-                String sql2 = "SELECT CONCAT(s.last_name,\" \", s.first_name) AS FullName FROM staff s WHERE s.staff_id = " +staff_id+";";
+                String sql2 = "SELECT CONCAT(s.last_name,\", \", s.first_name) AS FullName FROM staff s WHERE s.staff_id = " +staff_id+";";
                 PreparedStatement pstmt2 = conn.prepareStatement(sql2);;
                 ResultSet rs2 = pstmt2.executeQuery();
                 
@@ -93,7 +93,7 @@
                     String fullname = rs2.getString(1).toUpperCase();
                     // prints out report table
                     %>
-                    <h4>STAFF REPORT FOR <%=fullname%>, <%= r.year %></h4> 
+                    <h4>STAFF REPORT FOR <%=fullname%> (<%= r.year %>)</h4> 
                      
                     <table align="center" border = "1">
                         <tr><th>Month</th><th>Total Patients</th></tr> <%

@@ -28,7 +28,7 @@ public class patientIDexists {
         ResultSet result = null;  
         try {
             // 1. connect with database
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school_clinic", "root", "CCINFOM");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
             conn.setAutoCommit(true);
             
             // 2. Get the id you need

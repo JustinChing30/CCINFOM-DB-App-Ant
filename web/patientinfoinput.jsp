@@ -4,8 +4,9 @@
     Author     : user
 --%>
 <%@ page import="java.sql.*, CCINFOM.input_appointment, java.time.LocalDate, java.time.format.DateTimeFormatter" %>
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="javax.sql.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -70,16 +71,17 @@
         String StrAge = request.getParameter("age"); // int parse later
         
         String dental = request.getParameter("dental");
-        String blood = request.getParameter("blood");
+        String blood = request.getParameter("bloodTest");
         String urinalysis = request.getParameter("urinalysis");
         String xray = request.getParameter("xray");
-             
+        
+        
         int a = 1;
         if (a == 1) {
             try {
                 // Parse the date
                 int age = Integer.parseInt(StrAge);
-                
+                int count = 0;
                 
                 input_appointment A = new input_appointment();
                 // patient info
@@ -98,7 +100,24 @@
                 A.urinalysis = urinalysis;
                 
                 
+                if (dental.equals("yes")){
+                    count = count + 1;
+                }
+                if (blood.equals("yes")){
+                    count = count + 1;
+                }
+                if (xray.equals("yes")){
+                    count = count + 1;
+                }
+                if (urinalysis.equals("yes")){
+                    count = count + 1;
+                }
+                
+                A.count = count;
+                
+                
                 int success = A.insert_info();
+                int generatePatientId = A.patientId;
 
                 // Check result and display message
                 if (success == 1) {

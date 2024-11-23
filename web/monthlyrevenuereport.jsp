@@ -61,7 +61,7 @@
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn; 
-                conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "password");
+                conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
                 String sql = "SELECT MONTH(a.appointment_time), SUM(hr.total_fees) "+
                             "FROM health_record hr "+
                             "JOIN appointments a "+

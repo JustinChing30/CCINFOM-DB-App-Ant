@@ -24,9 +24,9 @@ public class hirestaff {
     }
    
     public int hire() {
-            String url = "jdbc:mysql://localhost:3306/school_clinic";
+            String url = "jdbc:mysql://localhost:3306/new_clinic";
             String user = "root";
-            String password = "CCINFOM";
+            String password = "";
             
             String query = "INSERT INTO staff (first_name, last_name, specialization, hire_date) VALUES (?, ?, ?, ?)";
             
