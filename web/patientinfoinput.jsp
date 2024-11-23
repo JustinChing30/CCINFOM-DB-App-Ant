@@ -83,6 +83,7 @@
                 int age = Integer.parseInt(StrAge);
                 int count = 0;
                 
+                
                 input_appointment A = new input_appointment();
                 // patient info
                 A.last_name = last;
@@ -98,7 +99,7 @@
                 A.blood_test = blood;
                 A.abdominal_Xray = xray;
                 A.urinalysis = urinalysis;
-                
+                A.patientId = A.get_patientId();
                 
                 if (dental.equals("yes")){
                     count = count + 1;
@@ -115,12 +116,19 @@
                 
                 A.count = count;
                 
-                
-                int success = A.insert_info();
-                int generatePatientId = A.patientId;
+                int success3 = 0;
+                int success2;     
+                int success1 = A.insert_info();
+       
+                if (success1 > 0){
+                    success2 = A.insert_appointment_table();
+                    if (success2 > 0){
+                        success3 = A.insert_health_table();
+                    }
+                }
 
                 // Check result and display message
-                if (success == 1) {
+                if (success3 > 0) {
     %>
                     <h2>You're all set!</h2>
                     <button class="back-btn" onclick="window.location.href='index.html';">Return</button>

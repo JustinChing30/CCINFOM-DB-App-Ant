@@ -22,10 +22,9 @@ public class inventoryUpdate {
     }
    
     public int update_item_amount() {
-        
-        System.out.println("aaaSelected item id: " + item_id);
-        System.out.println("aaaAmount: " + amount);
+
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             // 1. connect with database
             Connection conn; 
             conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");

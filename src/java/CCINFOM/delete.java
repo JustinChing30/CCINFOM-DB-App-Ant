@@ -24,6 +24,8 @@ public class delete {
     public int delete_appointment() {
         
         try {
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
             // 1. connect with database
             Connection conn; 
             conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
@@ -42,10 +44,12 @@ public class delete {
             conn.close();
 
             return 1;
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());            
         } catch (Exception e){
             System.out.println (e.getMessage());
             return 0;
         }
-      
+      return 1;
     }
 }

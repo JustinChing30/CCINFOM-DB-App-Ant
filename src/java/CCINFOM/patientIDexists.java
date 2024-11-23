@@ -27,6 +27,7 @@ public class patientIDexists {
         PreparedStatement pstmt = null;
         ResultSet result = null;  
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             // 1. connect with database
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/new_clinic", "root", "");
             conn.setAutoCommit(true);

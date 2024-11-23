@@ -24,6 +24,7 @@ public class hirestaff {
     }
    
     public int hire() {
+            
             String url = "jdbc:mysql://localhost:3306/new_clinic";
             String user = "root";
             String password = "";
@@ -31,6 +32,7 @@ public class hirestaff {
             String query = "INSERT INTO staff (first_name, last_name, specialization, hire_date) VALUES (?, ?, ?, ?)";
             
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement pstmt = conn.prepareStatement(query);
 
@@ -45,10 +47,13 @@ public class hirestaff {
             conn.close();
 
             return 1;
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());  
+            
         } catch (Exception e){
             System.out.println (e.getMessage());
             return 0;
         }
-      
+      return 1;
     }
 }

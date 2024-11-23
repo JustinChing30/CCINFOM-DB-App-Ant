@@ -62,7 +62,7 @@
         if (result == staffId) {
         staffDelete id = new staffDelete();
         id.staff_id = staffId;
-        id.delete_appointment();
+        id.delete_staff();
         %>
         <h2>Staff ID Fired.</h2>
         <button class="back-btn" onclick="window.location.href='staffportal.html';">Return</button>
