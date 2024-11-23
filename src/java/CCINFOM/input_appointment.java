@@ -152,16 +152,15 @@ public class input_appointment {
         selectStmt.close();  
         
         PreparedStatement xtmt = conn.prepareStatement(
-                "INSERT INTO health_record (record_id, schedule_id, dental, blood_test, urinalysis, abdominal_Xray, test_conduct, total_fees) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO health_record (schedule_id, dental, blood_test, urinalysis, abdominal_Xray, test_conduct, total_fees) VALUES (?, ?, ?, ?, ?, ?, ?)"
         );
         
-        xtmt.setInt(1, patientId);
-        xtmt.setInt(2, latestAppmntId);
-        xtmt.setString(3, dental);
-        xtmt.setString(4, blood_test);
-        xtmt.setString(5, urinalysis);
-        xtmt.setString(6, abdominal_Xray);
-        xtmt.setInt(7, count);
+        xtmt.setInt(1, latestAppmntId);
+        xtmt.setString(2, dental);
+        xtmt.setString(3, blood_test);
+        xtmt.setString(4, urinalysis);
+        xtmt.setString(5, abdominal_Xray);
+        xtmt.setInt(6, count);
 
         if (dental.equals("yes")) {
             totalFee += 500;
@@ -183,7 +182,7 @@ public class input_appointment {
             xrayCount += 1;
         }
 
-        xtmt.setFloat(8, totalFee);
+        xtmt.setFloat(7, totalFee);
         
         int healthSuccess = xtmt.executeUpdate();
         
@@ -201,7 +200,6 @@ public class input_appointment {
             itmt.executeUpdate();
         }
 
-        // Update needles
         if (needleCount > 0) {
             itmt.setInt(1, needleCount);
             itmt.setInt(2, 2);
@@ -238,6 +236,73 @@ public class input_appointment {
 
         itmt.close();
         
+        PreparedStatement selecthitmt = conn.prepareStatement(
+            "SELECT record_id FROM health_record WHERE record_id IS NOT NULL ORDER BY record_id DESC LIMIT 1"
+        );
+        
+        ResultSet rsInv = selecthitmt.executeQuery();
+        int latestHealthId = 0;
+        
+        if (rsInv.next()) {
+            latestHealthId = rsInv.getInt("record_id");
+        }
+        
+        selecthitmt.close(); 
+        
+        
+        PreparedStatement hitmt = conn.prepareStatement(
+            "INSERT INTO health_record_items (record_id, item_id, quantity_used) VALUES (?, ?, ?)"
+        );
+        
+        if (urineCupCount > 0) {
+            hitmt.setInt(1, latestHealthId);
+            hitmt.setInt(2, 1);
+            hitmt.setInt(3, urineCupCount);
+            hitmt.executeUpdate();
+        }
+
+        // Update needles
+        if (needleCount > 0) {
+            hitmt.setInt(1, latestHealthId);
+            hitmt.setInt(2, 2);
+            hitmt.setInt(3, needleCount);
+            hitmt.executeUpdate();
+        }
+
+
+        if (syringeCount > 0) {
+            hitmt.setInt(1, latestHealthId);
+            hitmt.setInt(2, 3);
+            hitmt.setInt(3, syringeCount);
+            hitmt.executeUpdate();
+        }
+
+
+        if (xrayCount > 0) {
+            hitmt.setInt(1, latestHealthId);
+            hitmt.setInt(2, 4);
+            hitmt.setInt(3, xrayCount);
+            hitmt.executeUpdate();
+        }
+
+
+        if (antisepticCount > 0) {
+            hitmt.setInt(1, latestHealthId);
+            hitmt.setInt(2, 5);
+            hitmt.setInt(3, antisepticCount);
+            hitmt.executeUpdate();
+        }
+
+
+        if (glovesCount > 0) {
+            hitmt.setInt(1, latestHealthId);
+            hitmt.setInt(2, 6);
+            hitmt.setInt(3, glovesCount);
+            hitmt.executeUpdate();
+        }
+        
+
+        hitmt.close();
         
         conn.close();
         
